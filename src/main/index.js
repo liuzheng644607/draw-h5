@@ -14,6 +14,7 @@ var app = {
         ctx.setLineWidth = function(s) {
             this.lineWidth = s;
         }
+        ctx.draw = () => {};
         ctx.setStrokeStyle('#000000');
         ctx.setLineCap('round');
         ctx.setLineWidth(4);
@@ -28,11 +29,14 @@ var app = {
     },
 
     onTouchStart: function(e) {
-        console.log(e);
+        e.touches[0].x = e.touches[0].clientX;
+        e.touches[0].y = e.touches[0].clientY;
         pen.start(e);
     },
 
     onTouchMove: function(e) {
+        e.touches[0].x = e.touches[0].clientX;
+        e.touches[0].y = e.touches[0].clientY;
         pen.move(e);
     },
 
@@ -41,12 +45,6 @@ var app = {
 
         var self = this;
         self.drawHistory = this.drawHistory || [];
-        wx.canvasToTempFilePath({
-            canvasId: 'my-canvas',
-            success: function(res) {
-                self.drawHistory.push(res.tempFilePath);
-            }
-        });
     },
 
     revoke: function() {
