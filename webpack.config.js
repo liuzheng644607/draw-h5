@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     entry: {
         app: './src/app.js'
@@ -19,6 +20,10 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 include: [resolve('src')]
+            },
+            {
+                test: /\.(less|css)$/,
+                loader:[ 'style-loader','css-loader','less-loader'],
             }
         ]
     },
@@ -56,7 +61,8 @@ module.exports = {
             },
             // necessary to consistently work with multiple chunks via CommonsChunkPlugin
             chunksSortMode: 'dependency'
-        })
+        }),
+        new ExtractTextPlugin("styles.css"),
     ]
 };
 function resolve(dir) {
