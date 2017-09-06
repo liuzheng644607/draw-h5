@@ -11,6 +11,7 @@ import main from './main';
 
 window.onload = () => {
     main.onReady();
+    console.log('test');
 };
 
 // const socket = io();
